@@ -48,5 +48,7 @@
     "transferCodesTitle": "Transfer codes",
     "transferCodesDescription": "Transfer your accounts to another device.",
     "exportAccounts": "Export accounts",
-    "importAccounts": "Import accounts"
+    "importAccounts": "Import accounts",
+    "importSuccess": "Accounts imported successfully!",
+    "importDescription": "Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code."
 }

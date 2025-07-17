@@ -393,6 +393,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Import accounts'**
   String get importAccounts;
+
+  /// No description provided for @importSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts imported successfully!'**
+  String get importSuccess;
+
+  /// No description provided for @importDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.'**
+  String get importDescription;
 }
 
 class _AppLocalizationsDelegate

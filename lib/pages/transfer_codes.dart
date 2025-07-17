@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
+import 'export_accounts.dart';
+import 'import_accounts.dart';
 
 class TransferCodesPage extends StatelessWidget {
   const TransferCodesPage({super.key});
@@ -35,7 +37,9 @@ class TransferCodesPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               onPressed: () {
-                // TODO: Navigate to export page
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ExportAccountsPage()),
+                );
               },
             ),
             const SizedBox(height: 24),
@@ -53,7 +57,9 @@ class TransferCodesPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               onPressed: () {
-                // TODO: Navigate to import page
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ImportAccountsPage()),
+                );
               },
             ),
           ],

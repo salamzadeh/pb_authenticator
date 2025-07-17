@@ -165,4 +165,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get importAccounts => 'Import accounts';
+
+  @override
+  String get importSuccess => 'Accounts imported successfully!';
+
+  @override
+  String get importDescription =>
+      'Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.';
 }
