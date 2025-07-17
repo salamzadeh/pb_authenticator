@@ -49,4 +49,6 @@
     </queries>
     <!-- TODO: Review permission, app should work without camera permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 </manifest>

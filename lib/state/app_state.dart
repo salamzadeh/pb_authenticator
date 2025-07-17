@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart' show ListEquality;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:local_auth/local_auth.dart';
 
 // TODO: Transition to new type
 typedef BaseItemType = LegacyAuthenticatorItem;
@@ -15,6 +17,21 @@ class AppState extends ChangeNotifier {
   // Theme and screen capture settings
   ThemeMode _themeMode = ThemeMode.system;
   bool _screenCapturePrevented = false;
+
+  // PIN and biometric settings
+  bool _pinEnabled = false;
+  bool _biometricEnabled = false;
+  DateTime? _lastUnlockTime;
+  static const _pinTimeout = Duration(minutes: 5);
+  static const _pinKey = 'app_pin';
+  static const _pinEnabledKey = 'pinEnabled';
+  static const _biometricEnabledKey = 'biometricEnabled';
+  static final _secureStorage = FlutterSecureStorage();
+
+  bool get pinEnabled => _pinEnabled;
+  bool get biometricEnabled => _biometricEnabled;
+  DateTime? get lastUnlockTime => _lastUnlockTime;
+  Duration get pinTimeout => _pinTimeout;
 
   ThemeMode get themeMode => _themeMode;
   bool get screenCapturePrevented => _screenCapturePrevented;
@@ -60,7 +77,8 @@ class AppState extends ChangeNotifier {
     final themeIndex = prefs.getInt('themeMode') ?? 0;
     _themeMode = ThemeMode.values[themeIndex];
     _screenCapturePrevented = prefs.getBool('screenCapturePrevented') ?? false;
-    // Platform channel will handle screen capture prevention
+    _pinEnabled = prefs.getBool(_pinEnabledKey) ?? false;
+    _biometricEnabled = prefs.getBool(_biometricEnabledKey) ?? false;
     notifyListeners();
   }
 
@@ -77,5 +95,38 @@ class AppState extends ChangeNotifier {
     await prefs.setBool('screenCapturePrevented', value);
     // Platform channel will handle screen capture prevention
     notifyListeners();
+  }
+
+  Future<void> setPinEnabled(bool value) async {
+    _pinEnabled = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_pinEnabledKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setBiometricEnabled(bool value) async {
+    _biometricEnabled = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_biometricEnabledKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setPin(String pin) async {
+    await _secureStorage.write(key: _pinKey, value: pin);
+  }
+
+  Future<String?> getPin() async {
+    return await _secureStorage.read(key: _pinKey);
+  }
+
+  void updateLastUnlockTime() {
+    _lastUnlockTime = DateTime.now();
+    notifyListeners();
+  }
+
+  bool shouldRequireAuth() {
+    if (!_pinEnabled && !_biometricEnabled) return false;
+    if (_lastUnlockTime == null) return true;
+    return DateTime.now().difference(_lastUnlockTime!) > _pinTimeout;
   }
 }

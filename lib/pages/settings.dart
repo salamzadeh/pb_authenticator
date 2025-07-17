@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' show Icons, ListTile, Material, ThemeMode, SimpleDialogOption, SimpleDialog, showDialog, SwitchListTile;
+import 'package:flutter/material.dart' show Icons, ListTile, Material, ThemeMode, SimpleDialogOption, SimpleDialog, showDialog, SwitchListTile, AlertDialog, InputDecoration, TextField, TextButton;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import '../l10n/app_localizations.dart';
 import '../state/app_state.dart';
@@ -9,6 +9,8 @@ import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
 import '../config/routes.dart';
 import '../l10n/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 /// Settings page.
 class SettingsPage extends StatelessWidget {
@@ -129,6 +131,76 @@ class SettingsPage extends StatelessWidget {
                         title: Text(AppLocalizations.of(context)!.preventScreenCapture ?? 'Prevent screen capture', style: const TextStyle(fontSize: 15)),
                         value: appState.screenCapturePrevented,
                         onChanged: (val) => appState.setScreenCapturePrevented(val),
+                      );
+                    },
+                  ),
+                  // PIN code
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      return SwitchListTile(
+                        dense: true,
+                        secondary: const Icon(Icons.lock),
+                        title: Text('Enable PIN code', style: const TextStyle(fontSize: 15)),
+                        value: appState.pinEnabled,
+                        onChanged: (val) async {
+                          if (val) {
+                            // Show dialog to set PIN
+                            final pin = await showDialog<String>(
+                              context: context,
+                              builder: (context) {
+                                final controller = TextEditingController();
+                                return AlertDialog(
+                                  title: const Text('Set PIN'),
+                                  content: TextField(
+                                    controller: controller,
+                                    keyboardType: TextInputType.number,
+                                    obscureText: true,
+                                    maxLength: 6,
+                                    decoration: const InputDecoration(labelText: 'Enter a 4-6 digit PIN'),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        if (controller.text.length >= 4 && controller.text.length <= 6) {
+                                          Navigator.pop(context, controller.text);
+                                        }
+                                      },
+                                      child: const Text('Save'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            if (pin != null && pin.length >= 4 && pin.length <= 6) {
+                              await appState.setPin(pin);
+                              await appState.setPinEnabled(true);
+                            }
+                          } else {
+                            await appState.setPinEnabled(false);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                  // Biometric auth
+                  FutureBuilder<bool>(
+                    future: LocalAuthentication().canCheckBiometrics,
+                    builder: (context, snapshot) {
+                      if (snapshot.data != true) return const SizedBox.shrink();
+                      return Consumer<AppState>(
+                        builder: (context, appState, _) {
+                          return SwitchListTile(
+                            dense: true,
+                            secondary: const Icon(Icons.fingerprint),
+                            title: Text('Enable biometric authentication', style: const TextStyle(fontSize: 15)),
+                            value: appState.biometricEnabled,
+                            onChanged: (val) => appState.setBiometricEnabled(val),
+                          );
+                        },
                       );
                     },
                   ),

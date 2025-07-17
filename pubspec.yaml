@@ -33,6 +33,8 @@ dependencies:
   provider: ^6.1.2
   introduction_screen: ^3.1.11
   qr_flutter: ^4.1.0
+  local_auth: ^2.1.7
+  flutter_secure_storage: ^9.0.0
 
 
 dev_dependencies:
