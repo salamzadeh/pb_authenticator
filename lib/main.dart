@@ -31,6 +31,16 @@ class MainApp extends StatelessWidget {
     GlobalWidgetsLocalizations.delegate,
   ];
 
+  static const MethodChannel _platform = MethodChannel('screen_capture');
+
+  void _updateScreenCapture(bool prevent) async {
+    try {
+      await _platform.invokeMethod(prevent ? 'prevent' : 'allow');
+    } catch (e) {
+      // ignore
+    }
+  }
+
   MainApp({super.key});
 
   @override
@@ -38,26 +48,30 @@ class MainApp extends StatelessWidget {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]);
 
-    // Material/Cupertino app depending on platform
-    return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
-      initialRoute: AppRoutes.home,
-      routes: {
-        AppRoutes.home: (context) => const AndroidHomePage(),
-        AppRoutes.edit: (context) => const AndroidEditPage(),
-        AppRoutes.add: (context) => const AddPage(),
-        AppRoutes.addScan: (context) => const ScanQRPage(),
-        AppRoutes.settings: (context) => const SettingsPage(),
-        AppRoutes.settingAcknowledgements: (context) =>
-            const AcknowledgementsPage(),
-        AppRoutes.howItWorks: (context) => const HowItWorksPage(),
-        AppRoutes.transferCodes: (context) => const TransferCodesPage(),
+    return Consumer<AppState>(
+      builder: (context, appState, _) {
+        _updateScreenCapture(appState.screenCapturePrevented);
+        return MaterialApp(
+          onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          themeMode: appState.themeMode,
+          initialRoute: AppRoutes.home,
+          routes: {
+            AppRoutes.home: (context) => const AndroidHomePage(),
+            AppRoutes.edit: (context) => const AndroidEditPage(),
+            AppRoutes.add: (context) => const AddPage(),
+            AppRoutes.addScan: (context) => const ScanQRPage(),
+            AppRoutes.settings: (context) => const SettingsPage(),
+            AppRoutes.settingAcknowledgements: (context) =>
+                const AcknowledgementsPage(),
+            AppRoutes.howItWorks: (context) => const HowItWorksPage(),
+            AppRoutes.transferCodes: (context) => const TransferCodesPage(),
+          },
+          localizationsDelegates: localizationsDelegates,
+          supportedLocales: supportedLocales,
+        );
       },
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
     );
   }
 }

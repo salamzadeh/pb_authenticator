@@ -53,5 +53,10 @@
     "importDescription": "Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.",
     "exportDescription": "Select which accounts to export and generate a QR code to transfer them to another device.",
     "generateQr": "Generate QR",
-    "noAccountsSelected": "No accounts selected."
+    "noAccountsSelected": "No accounts selected.",
+    "themeMode": "Theme",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "preventScreenCapture": "Prevent screen capture"
 }

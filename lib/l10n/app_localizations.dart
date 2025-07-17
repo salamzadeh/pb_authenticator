@@ -423,6 +423,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No accounts selected.'**
   String get noAccountsSelected;
+
+  /// No description provided for @themeMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeMode;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get themeSystem;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @preventScreenCapture.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevent screen capture'**
+  String get preventScreenCapture;
 }
 
 class _AppLocalizationsDelegate

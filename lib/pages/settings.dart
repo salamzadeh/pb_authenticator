@@ -1,12 +1,14 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart' show Icons, ListTile, Material;
+import 'package:flutter/material.dart' show Icons, ListTile, Material, ThemeMode, SimpleDialogOption, SimpleDialog, showDialog, SwitchListTile;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import '../l10n/app_localizations.dart';
+import '../state/app_state.dart';
 import '../ui/adaptive.dart' show AppScaffold, isPlatformAndroid;
 import '../helper/url.dart' show launchURL;
 import 'package:package_info_plus/package_info_plus.dart' show PackageInfo;
 import '../config/routes.dart';
 import '../l10n/constants.dart';
+import 'package:provider/provider.dart';
 
 /// Settings page.
 class SettingsPage extends StatelessWidget {
@@ -74,6 +76,62 @@ class SettingsPage extends StatelessWidget {
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
+                  // Theme selection
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      return ListTile(
+                        dense: true,
+                        leading: const Icon(Icons.brightness_6),
+                        title: Text(AppLocalizations.of(context)!.themeMode ?? 'Theme', style: const TextStyle(fontSize: 15)),
+                        subtitle: Text(
+                          appState.themeMode == ThemeMode.system
+                              ? (AppLocalizations.of(context)!.themeSystem ?? 'System')
+                              : appState.themeMode == ThemeMode.light
+                                  ? (AppLocalizations.of(context)!.themeLight ?? 'Light')
+                                  : (AppLocalizations.of(context)!.themeDark ?? 'Dark'),
+                        ),
+                        onTap: () async {
+                          final selected = await showDialog<ThemeMode>(
+                            context: context,
+                            builder: (context) {
+                              return SimpleDialog(
+                                title: Text(AppLocalizations.of(context)!.themeMode ?? 'Theme'),
+                                children: [
+                                  SimpleDialogOption(
+                                    child: Text(AppLocalizations.of(context)!.themeSystem ?? 'System'),
+                                    onPressed: () => Navigator.pop(context, ThemeMode.system),
+                                  ),
+                                  SimpleDialogOption(
+                                    child: Text(AppLocalizations.of(context)!.themeLight ?? 'Light'),
+                                    onPressed: () => Navigator.pop(context, ThemeMode.light),
+                                  ),
+                                  SimpleDialogOption(
+                                    child: Text(AppLocalizations.of(context)!.themeDark ?? 'Dark'),
+                                    onPressed: () => Navigator.pop(context, ThemeMode.dark),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          if (selected != null) {
+                            appState.setThemeMode(selected);
+                          }
+                        },
+                      );
+                    },
+                  ),
+                  // Screen capture prevention
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      return SwitchListTile(
+                        dense: true,
+                        secondary: const Icon(Icons.security),
+                        title: Text(AppLocalizations.of(context)!.preventScreenCapture ?? 'Prevent screen capture', style: const TextStyle(fontSize: 15)),
+                        value: appState.screenCapturePrevented,
+                        onChanged: (val) => appState.setScreenCapturePrevented(val),
+                      );
+                    },
+                  ),
                   // Source
                   ListTile(
                     dense: true,

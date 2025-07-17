@@ -19,6 +19,7 @@ dependencies:
   path_provider: ^2.1.4
   url_launcher: ^6.3.0
   package_info_plus: ^8.0.2
+  shared_preferences: ^2.2.2
 
 
   # Internal

@@ -182,4 +182,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noAccountsSelected => 'No accounts selected.';
+
+  @override
+  String get themeMode => 'Theme';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get preventScreenCapture => 'Prevent screen capture';
 }
