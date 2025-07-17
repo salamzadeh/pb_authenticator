@@ -50,5 +50,8 @@
     "exportAccounts": "Export accounts",
     "importAccounts": "Import accounts",
     "importSuccess": "Accounts imported successfully!",
-    "importDescription": "Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code."
+    "importDescription": "Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.",
+    "exportDescription": "Select which accounts to export and generate a QR code to transfer them to another device.",
+    "generateQr": "Generate QR",
+    "noAccountsSelected": "No accounts selected."
 }

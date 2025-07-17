@@ -405,6 +405,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.'**
   String get importDescription;
+
+  /// No description provided for @exportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Select which accounts to export and generate a QR code to transfer them to another device.'**
+  String get exportDescription;
+
+  /// No description provided for @generateQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate QR'**
+  String get generateQr;
+
+  /// No description provided for @noAccountsSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts selected.'**
+  String get noAccountsSelected;
 }
 
 class _AppLocalizationsDelegate

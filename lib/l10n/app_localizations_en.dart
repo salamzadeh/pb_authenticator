@@ -172,4 +172,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get importDescription =>
       'Import your accounts from Google Authenticator or PB Authenticator by scanning a QR code.';
+
+  @override
+  String get exportDescription =>
+      'Select which accounts to export and generate a QR code to transfer them to another device.';
+
+  @override
+  String get generateQr => 'Generate QR';
+
+  @override
+  String get noAccountsSelected => 'No accounts selected.';
 }
