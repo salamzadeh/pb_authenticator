@@ -220,12 +220,6 @@ abstract class AppLocalizations {
   /// **'Source code'**
   String get source;
 
-  /// No description provided for @licenses.
-  ///
-  /// In en, this message translates to:
-  /// **'Acknowledgements'**
-  String get licenses;
-
   /// No description provided for @clipboard.
   ///
   /// In en, this message translates to:
@@ -453,6 +447,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Prevent screen capture'**
   String get preventScreenCapture;
+
+  /// No description provided for @helpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get helpTitle;
+
+  /// No description provided for @helpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Need assistance? Here you can find answers to common questions and tips for using PB Authenticator.'**
+  String get helpBody;
 }
 
 class _AppLocalizationsDelegate

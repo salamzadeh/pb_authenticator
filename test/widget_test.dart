@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:pb_authenticator/l10n/app_localizations.dart';
-import 'package:pb_authenticator/pages/acknowledgements.dart';
+import 'package:pb_authenticator/pages/help.dart';
 import 'package:pb_authenticator/state/app_state.dart';
 import 'package:pb_authenticator/state/file_storage.dart';
 import 'package:pb_authenticator/main.dart';
@@ -54,7 +54,7 @@ TestLicense $i
           GlobalWidgetsLocalizations.delegate,
         ],
         locale: const Locale('en'),
-        child: const AcknowledgementsPage(),
+        child: const HelpPage(),
       )),
     );
 

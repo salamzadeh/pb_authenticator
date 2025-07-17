@@ -20,7 +20,6 @@
     "period": "Time step",
     "settingsTitle": "Settings",
     "source": "Source code",
-    "licenses": "Acknowledgements",
     "clipboard": "Copied to clipboard",
     "noAccounts": "You have no accounts,\n press the + button to add one.",
     "loading": "Loading...",
@@ -58,5 +57,7 @@
     "themeSystem": "System",
     "themeLight": "Light",
     "themeDark": "Dark",
-    "preventScreenCapture": "Prevent screen capture"
+    "preventScreenCapture": "Prevent screen capture",
+    "helpTitle": "Help",
+    "helpBody": "Need assistance? Here you can find answers to common questions and tips for using PB Authenticator."
 }

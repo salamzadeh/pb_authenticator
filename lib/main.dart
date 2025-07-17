@@ -63,10 +63,9 @@ class MainApp extends StatelessWidget {
             AppRoutes.add: (context) => const AddPage(),
             AppRoutes.addScan: (context) => const ScanQRPage(),
             AppRoutes.settings: (context) => const SettingsPage(),
-            AppRoutes.settingAcknowledgements: (context) =>
-                const AcknowledgementsPage(),
             AppRoutes.howItWorks: (context) => const HowItWorksPage(),
             AppRoutes.transferCodes: (context) => const TransferCodesPage(),
+            AppRoutes.help: (context) => const HelpPage(),
           },
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,

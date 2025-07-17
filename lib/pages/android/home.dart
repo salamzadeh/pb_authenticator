@@ -154,14 +154,14 @@ class AndroidHomePage extends StatelessWidget {
                   Navigator.pop(context);
                   launchURL(Constants.repoUrl);
                 }),
-            // License
+            // Help
             ListTile(
-              title: Text(AppLocalizations.of(context)!.licenses),
-              leading: const Icon(Icons.book),
+              title: Text(AppLocalizations.of(context)!.helpTitle ?? 'Help'),
+              leading: const Icon(Icons.help_outline),
               dense: true,
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, AppRoutes.settingAcknowledgements);
+                Navigator.pushNamed(context, AppRoutes.help);
               },
             ),
           ],

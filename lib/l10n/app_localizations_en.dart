@@ -72,9 +72,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get source => 'Source code';
 
   @override
-  String get licenses => 'Acknowledgements';
-
-  @override
   String get clipboard => 'Copied to clipboard';
 
   @override
@@ -197,4 +194,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get preventScreenCapture => 'Prevent screen capture';
+
+  @override
+  String get helpTitle => 'Help';
+
+  @override
+  String get helpBody =>
+      'Need assistance? Here you can find answers to common questions and tips for using PB Authenticator.';
 }

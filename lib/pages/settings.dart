@@ -142,17 +142,17 @@ class SettingsPage extends StatelessWidget {
                       launchURL(Constants.repoUrl);
                     },
                   ),
-                  // Acknowledgements
+                  // Help
                   ListTile(
                     dense: true,
                     leading: isPlatformAndroid()
-                        ? const Icon(Icons.book)
-                        : const Icon(CupertinoIcons.book),
-                    title: Text(AppLocalizations.of(context)!.licenses,
+                        ? const Icon(Icons.help_outline)
+                        : const Icon(CupertinoIcons.question_circle),
+                    title: Text(AppLocalizations.of(context)!.helpTitle ?? 'Help',
                         style: const TextStyle(fontSize: 15)),
                     onTap: () {
                       Navigator.of(context)
-                          .pushNamed(AppRoutes.settingAcknowledgements);
+                          .pushNamed(AppRoutes.help);
                     },
                   ),
                 ],
