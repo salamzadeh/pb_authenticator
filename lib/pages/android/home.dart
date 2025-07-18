@@ -115,25 +115,6 @@ class AndroidHomePage extends StatelessWidget {
                 ],
               ),
             ),
-            // Settings
-            ListTile(
-                title: Text(AppLocalizations.of(context)!.settingsTitle),
-                leading: const Icon(Icons.settings),
-                dense: true,
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, AppRoutes.settings);
-                }),
-            // How it works
-            ListTile(
-              title: Text(AppLocalizations.of(context)!.howItWorksTitle ?? 'How it works'),
-              leading: const Icon(Icons.info_outline),
-              dense: true,
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, AppRoutes.howItWorks);
-              },
-            ),
             // Transfer codes
             ListTile(
               title: Text(AppLocalizations.of(context)!.transferCodesTitle ?? 'Transfer codes'),
@@ -144,6 +125,27 @@ class AndroidHomePage extends StatelessWidget {
                 Navigator.pushNamed(context, AppRoutes.transferCodes);
               },
             ),
+            // How it works
+            ListTile(
+              title: Text(AppLocalizations.of(context)!.howItWorksTitle ?? 'How it works'),
+              leading: const Icon(Icons.info_outline),
+              dense: true,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, AppRoutes.howItWorks);
+              },
+            ),
+            // Settings
+            ListTile(
+                title: Text(AppLocalizations.of(context)!.settingsTitle),
+                leading: const Icon(Icons.settings),
+                dense: true,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, AppRoutes.settings);
+                }
+              ),
+
             const Divider(height: 10),
             // Source code (in-app browser link)
             ListTile(

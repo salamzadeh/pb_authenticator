@@ -1,6 +1,6 @@
 name: pb_authenticator_totp
 description: TOTP library used by pb_authenticator.
-version: 1.0.0
+version: 1.2.0
 publish_to: none
 
 environment:

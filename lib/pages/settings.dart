@@ -78,6 +78,41 @@ class SettingsPage extends StatelessWidget {
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
+                  // Language selection
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      final currentLocale = appState.locale.languageCode;
+                      return ListTile(
+                        dense: true,
+                        leading: const Icon(Icons.language),
+                        title: Text('Language', style: const TextStyle(fontSize: 15)),
+                        subtitle: Text(currentLocale == 'fa' ? 'فارسی' : 'English'),
+                        onTap: () async {
+                          final selected = await showDialog<String>(
+                            context: context,
+                            builder: (context) {
+                              return SimpleDialog(
+                                title: const Text('Select Language'),
+                                children: [
+                                  SimpleDialogOption(
+                                    child: const Text('English'),
+                                    onPressed: () => Navigator.pop(context, 'en'),
+                                  ),
+                                  SimpleDialogOption(
+                                    child: const Text('فارسی'),
+                                    onPressed: () => Navigator.pop(context, 'fa'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          if (selected != null && selected != currentLocale) {
+                            appState.setLocale(Locale(selected));
+                          }
+                        },
+                      );
+                    },
+                  ),
                   // Theme selection
                   Consumer<AppState>(
                     builder: (context, appState, _) {

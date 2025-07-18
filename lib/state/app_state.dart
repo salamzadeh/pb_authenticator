@@ -38,6 +38,11 @@ class AppState extends ChangeNotifier {
   static const _forceMonochromeIconsKey = 'forceMonochromeIcons';
   bool get forceMonochromeIcons => _forceMonochromeIcons;
 
+  // Locale setting
+  Locale _locale = const Locale('en');
+  static const _localeKey = 'locale';
+  Locale get locale => _locale;
+
   bool get pinEnabled => _pinEnabled;
   bool get biometricEnabled => _biometricEnabled;
   DateTime? get lastUnlockTime => _lastUnlockTime;
@@ -91,6 +96,11 @@ class AppState extends ChangeNotifier {
     _biometricEnabled = prefs.getBool(_biometricEnabledKey) ?? false;
     _showIcons = prefs.getBool(_showIconsKey) ?? true;
     _forceMonochromeIcons = prefs.getBool(_forceMonochromeIconsKey) ?? false;
+    // Load locale
+    final localeCode = prefs.getString(_localeKey);
+    if (localeCode != null) {
+      _locale = Locale(localeCode);
+    }
     notifyListeners();
   }
 
@@ -134,6 +144,13 @@ class AppState extends ChangeNotifier {
     _forceMonochromeIcons = value;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_forceMonochromeIconsKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setLocale(Locale locale) async {
+    _locale = locale;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_localeKey, locale.languageCode);
     notifyListeners();
   }
 

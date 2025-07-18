@@ -81,10 +81,17 @@ class _MainAppState extends State<MainApp> {
     return Consumer<AppState>(
       builder: (context, appState, _) {
         widget._updateScreenCapture(appState.screenCapturePrevented);
+        final isPersian = appState.locale.languageCode == 'fa';
         return MaterialApp(
           onGenerateTitle: (context) => AppLocalizations.of(context)!.appName,
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
+          theme: ThemeData(
+            brightness: Brightness.light,
+            fontFamily: isPersian ? 'Vazirmatn' : null,
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            fontFamily: isPersian ? 'Vazirmatn' : null,
+          ),
           themeMode: appState.themeMode,
           initialRoute: AppRoutes.home,
           routes: {
@@ -97,11 +104,15 @@ class _MainAppState extends State<MainApp> {
             AppRoutes.transferCodes: (context) => _AuthGate(child: const TransferCodesPage()),
             AppRoutes.help: (context) => _AuthGate(child: const HelpPage()),
           },
-          localizationsDelegates: widget.localizationsDelegates,
-          supportedLocales: widget.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: const [Locale('en'), Locale('fa')],
+          locale: appState.locale,
           builder: (context, child) {
             if (_locked) return const SizedBox.shrink();
-            return child!;
+            return Directionality(
+              textDirection: isPersian ? TextDirection.rtl : TextDirection.ltr,
+              child: child!,
+            );
           },
         );
       },
