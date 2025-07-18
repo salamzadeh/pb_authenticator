@@ -35,6 +35,7 @@ dependencies:
   qr_flutter: ^4.1.0
   local_auth: ^2.1.7
   flutter_secure_storage: ^9.0.0
+  flutter_svg: ^2.2.0
 
 
 dev_dependencies:
@@ -48,4 +49,6 @@ flutter:
   uses-material-design: true
 
   assets:
+    - graphics/aegis-icons-outline/
+    - graphics/aegis-icons-outline/SVG/
     - graphics/icon.png

@@ -134,6 +134,30 @@ class SettingsPage extends StatelessWidget {
                       );
                     },
                   ),
+                  // Show/hide icons
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      return SwitchListTile(
+                        dense: true,
+                        secondary: const Icon(Icons.image),
+                        title: Text('Show icons on cards', style: const TextStyle(fontSize: 15)),
+                        value: appState.showIcons,
+                        onChanged: (val) => appState.setShowIcons(val),
+                      );
+                    },
+                  ),
+                  // Force monochrome icons
+                  Consumer<AppState>(
+                    builder: (context, appState, _) {
+                      return SwitchListTile(
+                        dense: true,
+                        secondary: const Icon(Icons.format_paint),
+                        title: Text('Force monochrome icons', style: const TextStyle(fontSize: 15)),
+                        value: appState.forceMonochromeIcons,
+                        onChanged: (val) => appState.setForceMonochromeIcons(val),
+                      );
+                    },
+                  ),
                   // PIN code
                   Consumer<AppState>(
                     builder: (context, appState, _) {

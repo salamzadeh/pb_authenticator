@@ -28,6 +28,16 @@ class AppState extends ChangeNotifier {
   static const _biometricEnabledKey = 'biometricEnabled';
   static final _secureStorage = FlutterSecureStorage();
 
+  // Show/hide icons setting
+  bool _showIcons = true;
+  static const _showIconsKey = 'showIcons';
+  bool get showIcons => _showIcons;
+
+  // Force monochrome icons setting
+  bool _forceMonochromeIcons = false;
+  static const _forceMonochromeIconsKey = 'forceMonochromeIcons';
+  bool get forceMonochromeIcons => _forceMonochromeIcons;
+
   bool get pinEnabled => _pinEnabled;
   bool get biometricEnabled => _biometricEnabled;
   DateTime? get lastUnlockTime => _lastUnlockTime;
@@ -79,6 +89,8 @@ class AppState extends ChangeNotifier {
     _screenCapturePrevented = prefs.getBool('screenCapturePrevented') ?? false;
     _pinEnabled = prefs.getBool(_pinEnabledKey) ?? false;
     _biometricEnabled = prefs.getBool(_biometricEnabledKey) ?? false;
+    _showIcons = prefs.getBool(_showIconsKey) ?? true;
+    _forceMonochromeIcons = prefs.getBool(_forceMonochromeIconsKey) ?? false;
     notifyListeners();
   }
 
@@ -108,6 +120,20 @@ class AppState extends ChangeNotifier {
     _biometricEnabled = value;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_biometricEnabledKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setShowIcons(bool value) async {
+    _showIcons = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_showIconsKey, value);
+    notifyListeners();
+  }
+
+  Future<void> setForceMonochromeIcons(bool value) async {
+    _forceMonochromeIcons = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_forceMonochromeIconsKey, value);
     notifyListeners();
   }
 
